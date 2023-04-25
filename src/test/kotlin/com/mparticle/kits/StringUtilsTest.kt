@@ -45,6 +45,12 @@ class StringUtilsTest {
         //key with a invalid type
         data = mapOf("key" to "value")
         Assert.assertEquals(default, tryParseLongSettingFlag(data, "key", default))
+
+        //key that is not available in the map
+        Assert.assertEquals(default, tryParseLongSettingFlag(data, "key_1", default))
+
+        //null key
+        Assert.assertEquals(default, tryParseLongSettingFlag(data, "null", default))
     }
 
     @Test
