@@ -8,7 +8,7 @@ This repository contains the [Apptentive](https://www.apptentive.com/) integrati
 
     ```groovy
     dependencies {
-        implementation 'com.mparticle:android-apptentive-kit:6+'
+        implementation 'com.mparticle:android-apptentive-kit:5+'
     }
     ```
 2. Follow the mParticle Android SDK [quick-start](https://github.com/mParticle/mparticle-android-sdk), then rebuild and launch your app, and verify that you see `"Apptentive detected"` in the output of `adb logcat`.

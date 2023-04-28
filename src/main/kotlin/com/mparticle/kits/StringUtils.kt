@@ -16,7 +16,9 @@ internal object StringUtils {
         key: String?,
         defaultValue: Long
     ): Long {
-        val value = settings[key]
+        val value = key?.let {
+            settings[key]
+        }
         return  try {
             value?.toLong() ?: defaultValue
         } catch (e: NumberFormatException) {
