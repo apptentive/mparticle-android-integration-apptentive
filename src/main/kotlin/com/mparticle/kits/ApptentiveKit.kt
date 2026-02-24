@@ -63,21 +63,22 @@ class ApptentiveKit :
                 )
             val attributes = MParticle.getInstance()?.getIntegrationAttributes(MParticle.ServiceProviders.APPTENTIVE)
             Logger.debug("Setting Apptentive region from attributes: ${attributes?.get("region") ?: "us"}")
-            configuration.region = when (attributes?.get("region") ?: "us") {
-                "us" -> ApptentiveRegion.US
-                "eu" -> ApptentiveRegion.EU
-                "cn" -> ApptentiveRegion.CN
-                "au" -> ApptentiveRegion.AU
-                "custom" -> {
-                    val region = attributes?.get("region")
-                    if (region != null) {
-                        ApptentiveRegion.Custom(region)
-                    } else {
-                        ApptentiveRegion.US
+            configuration.region =
+                when (attributes?.get("region") ?: "us") {
+                    "us" -> ApptentiveRegion.US
+                    "eu" -> ApptentiveRegion.EU
+                    "cn" -> ApptentiveRegion.CN
+                    "au" -> ApptentiveRegion.AU
+                    "custom" -> {
+                        val region = attributes?.get("region")
+                        if (region != null) {
+                            ApptentiveRegion.Custom(region)
+                        } else {
+                            ApptentiveRegion.US
+                        }
                     }
+                    else -> ApptentiveRegion.US
                 }
-                else -> ApptentiveRegion.US
-            }
             Apptentive.register(
                 context.applicationContext as Application,
                 configuration,
