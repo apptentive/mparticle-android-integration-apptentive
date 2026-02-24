@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '2.0.20'
-    if (!project.hasProperty('version') || project.version.equals('unspecified')) {
+    if (!project.hasProperty('version') || project.version == 'unspecified') {
         project.version = '+'
     }
 
@@ -11,8 +11,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'
-        classpath 'com.mparticle:android-kit-plugin:' + project.version
+        classpath "com.android.tools.build:gradle:8.4.2"
+        classpath "com.mparticle:android-kit-plugin:${project.version}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -36,6 +36,7 @@ apply plugin: 'com.mparticle.kit'
 
 android {
     namespace 'com.mparticle.kits.apptentive'
+    compileSdk 35
     buildFeatures {
         buildConfig = true
     }
@@ -64,6 +65,6 @@ allprojects {
 }
 
 dependencies {
-    api 'com.apptentive:apptentive-kit-android:6.9.1'
+    api 'com.apptentive:apptentive-kit-android:7.0.0'
     testImplementation 'io.mockk:mockk:1.13.3'
 }
