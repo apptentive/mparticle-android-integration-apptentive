@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import apptentive.com.android.feedback.Apptentive
 import apptentive.com.android.feedback.ApptentiveConfiguration
+import apptentive.com.android.feedback.ApptentiveRegion
 import apptentive.com.android.feedback.RegisterResult
 import apptentive.com.android.util.InternalUseOnly
 import apptentive.com.android.util.LogLevel
@@ -60,6 +61,24 @@ class ApptentiveKit :
                     RATING_INTERACTION_THROTTLE_LENGTH,
                     TimeUnit.DAYS.toMillis(7),
                 )
+            val attributes = MParticle.getInstance()?.getIntegrationAttributes(MParticle.ServiceProviders.APPTENTIVE)
+            Logger.debug("Setting Apptentive region from attributes: ${attributes?.get("region") ?: "us"}")
+            configuration.region =
+                when (attributes?.get("region") ?: "us") {
+                    "us" -> ApptentiveRegion.US
+                    "eu" -> ApptentiveRegion.EU
+                    "cn" -> ApptentiveRegion.CN
+                    "au" -> ApptentiveRegion.AU
+                    "custom" -> {
+                        val region = attributes?.get("region")
+                        if (region != null) {
+                            ApptentiveRegion.Custom(region)
+                        } else {
+                            ApptentiveRegion.US
+                        }
+                    }
+                    else -> ApptentiveRegion.US
+                }
             Apptentive.register(
                 context.applicationContext as Application,
                 configuration,
